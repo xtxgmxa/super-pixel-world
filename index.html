@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>SUPER PIXEL WORLD 2D - v2.0.1 Mobile Landscape Fix</title>
+    <title>SUPER PIXEL WORLD 2D - v2.1 Mobile Comfort</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
@@ -175,354 +175,6 @@
             color: #f8fafc;
         }
     
-        /* =========================================
-           v1.6.1 MOBILE / RWD GAMEPLAY LAYER
-           - Portrait: canvas on top, controller below
-           - Landscape: full-screen handheld overlay
-           ========================================= */
-        html, body {
-            width: 100%;
-            min-height: 100%;
-            overscroll-behavior: none;
-        }
-
-        body {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        #game-wrapper,
-        #game-container,
-        canvas,
-        .touch-controls,
-        .d-btn,
-        .act-btn {
-            touch-action: none;
-        }
-
-        #game-wrapper {
-            width: min(100%, 920px);
-            padding-left: max(10px, env(safe-area-inset-left));
-            padding-right: max(10px, env(safe-area-inset-right));
-        }
-
-        #game-container {
-            aspect-ratio: 16 / 9;
-        }
-
-        #gameCanvas {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .touch-controls {
-            position: relative;
-            z-index: 30;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-        }
-
-        .mobile-menu-panel {
-            display: none;
-        }
-
-        @media (max-width: 760px) {
-            body {
-                overflow-x: hidden;
-                overflow-y: auto;
-                min-height: 100dvh;
-                justify-content: flex-start;
-            }
-
-            #game-wrapper {
-                max-width: none;
-                padding-top: max(8px, env(safe-area-inset-top));
-                padding-bottom: max(10px, env(safe-area-inset-bottom));
-            }
-
-            .status-header {
-                gap: 6px;
-                padding: 7px 8px;
-                min-height: 44px;
-                flex-wrap: nowrap;
-            }
-
-            .header-title-text {
-                font-size: 8px;
-                white-space: nowrap;
-            }
-
-            .char-tag-badge {
-                font-size: 7px;
-                padding: 5px 7px;
-            }
-
-            .header-btn {
-                font-size: 6px;
-                padding: 5px 6px;
-                min-height: 34px;
-                white-space: nowrap;
-            }
-
-            /* 手機直向只保留必要操作，避免頂欄塞爆 */
-            .status-header .header-btn:nth-of-type(1),
-            .status-header .header-btn:nth-of-type(4) {
-                display: none;
-            }
-
-            #game-container {
-                border-width: 3px;
-                border-radius: 0 0 8px 8px;
-            }
-
-            .touch-controls {
-                max-width: none;
-                margin-top: 12px;
-                padding: 0 12px;
-                min-height: 132px;
-            }
-
-            .d-pad {
-                grid-template-columns: repeat(3, 52px);
-                grid-template-rows: repeat(2, 52px);
-                gap: 5px;
-            }
-
-            .d-btn {
-                width: 52px;
-                height: 52px;
-                font-size: 18px;
-                border-radius: 9px;
-            }
-
-            .action-btns {
-                gap: 14px;
-            }
-
-            .act-btn {
-                width: 68px;
-                height: 68px;
-                font-size: 13px;
-                border-width: 4px;
-            }
-        }
-
-        /* 橫向手機：Canvas 幾乎滿螢幕，按鍵疊在畫面上 */
-        @media (orientation: landscape) and (max-height: 620px) {
-            html, body {
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                background: #000;
-            }
-
-            body {
-                min-height: 100dvh;
-                display: block;
-            }
-
-            #game-wrapper {
-                position: fixed;
-                inset: 0;
-                width: 100vw;
-                height: 100dvh;
-                max-width: none;
-                padding:
-                    env(safe-area-inset-top)
-                    env(safe-area-inset-right)
-                    env(safe-area-inset-bottom)
-                    env(safe-area-inset-left);
-                display: block;
-            }
-
-            .status-header {
-                position: absolute;
-                z-index: 50;
-                top: max(4px, env(safe-area-inset-top));
-                left: 50%;
-                transform: translateX(-50%);
-                width: min(92vw, 620px);
-                height: 38px;
-                min-height: 38px;
-                padding: 4px 7px;
-                border: 2px solid rgba(148,163,184,.45);
-                border-radius: 8px;
-                background: rgba(15,23,42,.78);
-                backdrop-filter: blur(4px);
-            }
-
-            .header-title-text {
-                font-size: 7px;
-            }
-
-            .char-tag-badge {
-                font-size: 6px;
-                padding: 4px 6px;
-            }
-
-            .header-btn {
-                min-height: 28px;
-                font-size: 5px;
-                padding: 4px 5px;
-                background: rgba(30,41,59,.88) !important;
-            }
-
-            /* 橫向只留 BGM / SFX 與角色標籤 */
-            .status-header .header-btn:nth-of-type(1),
-            .status-header .header-btn:nth-of-type(4) {
-                display: none;
-            }
-
-            #game-container {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                aspect-ratio: auto;
-                border: 0;
-                border-radius: 0;
-                box-shadow: none;
-                background: #000;
-            }
-
-            #gameCanvas {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                background: #000;
-            }
-
-            .touch-controls {
-                position: absolute;
-                inset: 0;
-                z-index: 60;
-                width: 100%;
-                max-width: none;
-                margin: 0;
-                padding: 0;
-                pointer-events: none;
-            }
-
-            .d-pad {
-                position: absolute;
-                left: max(16px, env(safe-area-inset-left));
-                bottom: max(14px, env(safe-area-inset-bottom));
-                grid-template-columns: repeat(3, 52px);
-                grid-template-rows: repeat(2, 52px);
-                gap: 4px;
-                pointer-events: auto;
-                opacity: .68;
-            }
-
-            .d-btn {
-                width: 52px;
-                height: 52px;
-                font-size: 18px;
-                background: rgba(30,41,59,.78) !important;
-                border-color: rgba(148,163,184,.42);
-                box-shadow: 0 3px 0 rgba(0,0,0,.55);
-            }
-
-            #btn-down {
-                background: rgba(234,88,12,.82) !important;
-            }
-
-            .action-btns {
-                position: absolute;
-                right: max(20px, env(safe-area-inset-right));
-                bottom: max(20px, env(safe-area-inset-bottom));
-                gap: 16px;
-                pointer-events: auto;
-                align-items: flex-end;
-                opacity: .74;
-            }
-
-            .act-btn {
-                width: 72px;
-                height: 72px;
-                border-width: 5px;
-                box-shadow: 0 4px 0 rgba(0,0,0,.55);
-            }
-
-            #btn-b {
-                transform: translateY(10px);
-            }
-        }
-
-        @media (orientation: landscape) and (max-height: 430px) {
-            .status-header {
-                width: min(86vw, 560px);
-                height: 34px;
-                min-height: 34px;
-            }
-
-            .d-pad {
-                grid-template-columns: repeat(3, 46px);
-                grid-template-rows: repeat(2, 46px);
-            }
-
-            .d-btn {
-                width: 46px;
-                height: 46px;
-            }
-
-            .act-btn {
-                width: 64px;
-                height: 64px;
-            }
-        }
-
-
-        /* v1.9.0 touch-device auto detection */
-        .touch-active {
-            transform: translateY(2px) scale(.96) !important;
-            filter: brightness(1.35) !important;
-        }
-
-        html.touch-device .d-btn,
-        html.touch-device .act-btn {
-            min-width: 52px;
-            min-height: 52px;
-        }
-
-        @media (pointer: coarse) and (max-width: 480px) and (orientation: portrait) {
-            .touch-controls {
-                padding-left: 8px;
-                padding-right: 8px;
-                gap: 10px;
-            }
-
-            .d-pad {
-                grid-template-columns: repeat(3, clamp(44px, 13vw, 54px));
-                grid-template-rows: repeat(2, clamp(44px, 13vw, 54px));
-            }
-
-            .d-btn {
-                width: clamp(44px, 13vw, 54px);
-                height: clamp(44px, 13vw, 54px);
-            }
-
-            .act-btn {
-                width: clamp(62px, 17vw, 74px);
-                height: clamp(62px, 17vw, 74px);
-            }
-        }
-
-        /* =========================================
-           v2.0.0 MOBILE JOYSTICK + SAFE GAME FRAME
-           - Game keeps true 16:9 ratio
-           - Landscape controls live outside the game frame
-           - Left control is an analog-style touch joystick
-           ========================================= */
-        :root {
-            --mobile-control-size: 118px;
-            --mobile-side-width: 132px;
-        }
-
         .joystick-wrap {
             display: flex;
             flex-direction: column;
@@ -575,296 +227,131 @@
             text-shadow: 1px 1px #000;
         }
 
-        @media (max-width: 760px) and (orientation: portrait) {
-            .touch-controls {
-                display: grid;
-                grid-template-columns: 1fr auto;
-                align-items: center;
-                gap: 16px;
-                min-height: 142px;
-            }
-            .joystick-base {
-                width: clamp(100px, 29vw, 122px);
-                height: clamp(100px, 29vw, 122px);
-            }
-            .action-btns {
-                justify-content: flex-end;
-            }
+
+        /* v2.1: separate the screen, information and thumb controls. */
+        html, body { width: 100%; height: 100%; overscroll-behavior: none; }
+        body { min-height: 100dvh; -webkit-tap-highlight-color: transparent; }
+        #game-wrapper, #gameCanvas, .touch-controls { touch-action: none; }
+        #game-wrapper { height: 100dvh; max-height: 100dvh; display: grid;
+            grid-template-rows: auto minmax(0, 1fr) 136px; gap: 8px; }
+        .status-header { border: 1px solid #334155; border-radius: 10px; min-height: 44px; padding: 5px 10px; }
+        .play-area { width: 100%; height: 100%; min-width: 0; min-height: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 6px; overflow: hidden; }
+        #game-container { flex: none; aspect-ratio: auto; border: 2px solid #cbd5e1;
+            border-radius: 8px; box-shadow: none; }
+        #gameCanvas { display: block; width: 100%; height: 100%; }
+        .game-hud { flex: none; width: 100%; display: grid; grid-template-columns: repeat(8,minmax(0,1fr));
+            gap: 3px 8px; padding: 6px 8px; background: #101a2c; border: 1px solid #334155;
+            border-radius: 8px; font: 11px/1.35 ui-monospace, monospace; color: #dbeafe; }
+        .game-hud span { white-space: nowrap; text-align: center; }
+        .game-hud strong { color: #fde047; font-weight: 700; }
+        .hud-progress { grid-column: 1/-1; width: 100%; height: 3px; accent-color: #38bdf8; }
+        .touch-controls { width: 100%; max-width: none; margin: 0; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center; min-height: 0; }
+        .joystick-base { width: 110px; height: 110px; }
+        .act-btn { width: 68px; height: 68px; flex: none; }
+        .action-btns { gap: 14px; align-items: center; }
+        .touch-active { filter: brightness(1.3); }
+        .mobile-menu-btn { display: none; }
+        #game-menu { background: #0f172a; color: #f8fafc; border: 2px solid #475569;
+            border-radius: 16px; width: min(90vw,360px); padding: 20px; }
+        #game-menu::backdrop { background: rgba(2,6,23,.8); }
+        #game-menu h2 { font: bold 18px/1.5 system-ui; margin: 0 0 16px; }
+        #game-menu .header-btn { display: flex; justify-content: center; width: 100%;
+            min-height: 48px; font-size: 10px; margin: 8px 0; }
+        #game-menu .menu-close { background: #facc15; color: #111827; }
+        .joystick-label { font-size: 8px; }
+        @media (max-width: 760px), (pointer: coarse), (orientation: landscape) and (max-height: 620px) {
+            body { overflow: hidden; justify-content: flex-start; }
+            #game-wrapper { width: 100%; max-width: none; padding: max(4px,env(safe-area-inset-top))
+                max(4px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom))
+                max(4px,env(safe-area-inset-left));
+                grid-template-rows: 44px minmax(0,1fr) clamp(130px,22dvh,172px); gap: 6px; }
+            .header-title-text { font-size: 8px; letter-spacing: 0; }
+            .char-tag-badge { font-size: 7px; padding: 6px; }
+            .desktop-actions { display: none !important; }
+            .mobile-menu-btn { display: flex; min-width: 48px; min-height: 40px; justify-content: center;
+                font: bold 13px system-ui; }
+            .game-hud { grid-template-columns: repeat(4,minmax(0,1fr)); font-size: 10px; padding: 6px; }
+            .touch-controls { padding: 0 10px; }
+            .joystick-base { width: clamp(106px,30vw,132px); height: clamp(106px,30vw,132px); }
+            .act-btn { width: clamp(64px,18vw,82px); height: clamp(64px,18vw,82px); font-size: 14px; }
+            .action-btns { gap: 12px; }
         }
-
-        @media (orientation: landscape) and (max-height: 620px) and (pointer: coarse) {
-            html, body {
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                background: #05070b;
-            }
-
-            #game-wrapper {
-                position: fixed;
-                inset: 0;
-                width: 100vw;
-                height: 100dvh;
-                max-width: none;
-                padding: max(4px, env(safe-area-inset-top)) max(6px, env(safe-area-inset-right)) max(4px, env(safe-area-inset-bottom)) max(6px, env(safe-area-inset-left));
-                display: grid;
-                grid-template-columns: minmax(106px, var(--mobile-side-width)) minmax(0, 1fr) minmax(112px, var(--mobile-side-width));
-                grid-template-rows: 1fr;
-                align-items: center;
-                justify-items: center;
-                column-gap: 6px;
-                background: #05070b;
-            }
-
-            .status-header {
-                position: absolute;
-                z-index: 80;
-                top: max(4px, env(safe-area-inset-top));
-                left: 50%;
-                transform: translateX(-50%);
-                width: min(58vw, 520px);
-                height: 32px;
-                min-height: 32px;
-                padding: 3px 6px;
-                border-radius: 7px;
-                opacity: .88;
-            }
-
-            #game-container {
-                grid-column: 2;
-                grid-row: 1;
-                position: relative;
-                inset: auto;
-                width: min(100%, calc((100dvh - max(8px, env(safe-area-inset-top)) - max(8px, env(safe-area-inset-bottom))) * 16 / 9));
-                height: auto;
-                aspect-ratio: 16 / 9;
-                border: 2px solid rgba(248,250,252,.76);
-                border-radius: 8px;
-                overflow: hidden;
-                background: #000;
-                box-shadow: 0 10px 26px rgba(0,0,0,.55);
-            }
-
-            #gameCanvas {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                background: #000;
-            }
-
-            .touch-controls {
-                position: contents;
-                inset: auto;
-                width: auto;
-                height: auto;
-                margin: 0;
-                padding: 0;
-                pointer-events: none;
-            }
-
-            .joystick-wrap {
-                grid-column: 1;
-                grid-row: 1;
-                align-self: end;
-                justify-self: center;
-                margin-bottom: max(10px, env(safe-area-inset-bottom));
-                pointer-events: auto;
-            }
-
-            .joystick-base {
-                width: clamp(94px, 25vh, 116px);
-                height: clamp(94px, 25vh, 116px);
-                opacity: .96;
-            }
-
-            .action-btns {
-                grid-column: 3;
-                grid-row: 1;
-                position: static;
-                align-self: end;
-                justify-self: center;
-                margin-bottom: max(12px, env(safe-area-inset-bottom));
-                display: flex;
-                gap: 10px;
-                pointer-events: auto;
-                opacity: .96;
-                align-items: flex-end;
-            }
-
-            .act-btn {
-                width: clamp(58px, 15vh, 70px);
-                height: clamp(58px, 15vh, 70px);
-                border-width: 4px;
-                box-shadow: 0 4px 0 rgba(0,0,0,.62);
-            }
-
-            #btn-b { transform: translateY(8px); }
+        @media (orientation: landscape) and (max-height: 620px) {
+            #game-wrapper { --rail: clamp(74px,10vw,100px); position: fixed; inset: 0;
+                display: grid; grid-template-columns: var(--rail) minmax(0,1fr) var(--rail);
+                grid-template-rows: minmax(0,1fr); gap: 6px; }
+            .play-area { grid-column: 2; grid-row: 1; height: 100%; width: 100%; gap: 4px; }
+            .status-header { position: absolute; top: max(5px,env(safe-area-inset-top));
+                left: max(5px,env(safe-area-inset-left)); width: var(--rail); padding: 0;
+                border: 0; background: none; display: flex; justify-content: center; z-index: 2; }
+            .header-title-text, .char-tag-badge { display: none; }
+            .game-hud { position: fixed; left: 0; top: 0; width: 100%; height: 0;
+                border: 0; padding: 0; background: none; display: block;
+                overflow: visible; font-size: 10px; pointer-events: none; z-index: 2; }
+            .game-hud span { position: absolute; width: var(--rail); line-height: 18px; }
+            #hud-world { left: max(4px,env(safe-area-inset-left)); top: 58px; color: #fde047; }
+            #hud-lives { left: max(4px,env(safe-area-inset-left)); top: 80px; color: #fda4af; }
+            #hud-coins { left: max(4px,env(safe-area-inset-left)); top: 102px; }
+            #hud-secret { left: max(4px,env(safe-area-inset-left)); top: 124px; }
+            #hud-goals { right: max(4px,env(safe-area-inset-right)); top: max(8px,env(safe-area-inset-top)); }
+            #hud-score { right: max(4px,env(safe-area-inset-right)); top: 30px; }
+            #hud-party { right: max(4px,env(safe-area-inset-right)); top: 52px; }
+            #hud-combo { right: max(4px,env(safe-area-inset-right)); top: 74px; }
+            .hud-progress { position: absolute; right: max(10px,env(safe-area-inset-right));
+                top: 100px; width: calc(var(--rail) - 12px); height: 3px; }
+            .touch-controls { display: contents; }
+            .joystick-wrap { grid-column: 1; grid-row: 1; align-self: end; margin: 0 0 6px; width: 100%; }
+            .joystick-base { width: min(100%,88px); height: auto; aspect-ratio: 1; }
+            .joystick-label { display: none; }
+            .action-btns { grid-column: 3; grid-row: 1; align-self: end; margin-bottom: 6px;
+                display: flex; flex-direction: column-reverse; gap: 12px; align-items: center; }
+            .act-btn { width: clamp(56px,16dvh,74px); height: clamp(56px,16dvh,74px); font-size: 12px; }
+            #btn-b { transform: none; }
         }
-
-        @media (orientation: landscape) and (max-height: 430px) and (pointer: coarse) {
-            :root { --mobile-side-width: 116px; }
-            .status-header { width: min(52vw, 460px); height: 28px; min-height: 28px; }
-            .header-title-text { font-size: 6px; }
-            .joystick-base { width: 92px; height: 92px; }
-            .act-btn { width: 58px; height: 58px; font-size: 9px; }
-        }
-
-        @media (orientation: landscape) and (max-height: 620px) and (pointer: coarse) {
-            :root {
-                --landscape-side-safe: clamp(104px, 17vw, 154px);
-                --landscape-gap: 8px;
-            }
-
-            #game-wrapper {
-                display: block !important;
-                position: fixed;
-                inset: 0;
-                width: 100vw;
-                height: 100dvh;
-                max-width: none;
-                padding: 0 !important;
-                overflow: hidden;
-                background: #05070b;
-            }
-
-            #game-container {
-                position: absolute !important;
-                left: 50% !important;
-                top: 50% !important;
-                right: auto !important;
-                bottom: auto !important;
-                transform: translate(-50%, -50%);
-                width: min(
-                    calc(100vw - (var(--landscape-side-safe) * 2) - (var(--landscape-gap) * 2)),
-                    calc((100dvh - 10px) * 16 / 9)
-                ) !important;
-                height: auto !important;
-                aspect-ratio: 16 / 9 !important;
-                border: 2px solid rgba(248,250,252,.72);
-                border-radius: 8px;
-                overflow: hidden;
-                box-shadow: 0 8px 24px rgba(0,0,0,.5);
-            }
-
-            #gameCanvas {
-                position: absolute;
-                inset: 0;
-                width: 100% !important;
-                height: 100% !important;
-                object-fit: contain;
-            }
-
-            .touch-controls {
-                position: absolute !important;
-                inset: 0 !important;
-                display: block !important;
-                width: 100% !important;
-                height: 100% !important;
-                max-width: none !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                min-height: 0 !important;
-                pointer-events: none;
-                z-index: 70;
-            }
-
-            .joystick-wrap {
-                position: absolute !important;
-                left: max(8px, env(safe-area-inset-left));
-                bottom: max(8px, env(safe-area-inset-bottom));
-                width: calc(var(--landscape-side-safe) - 12px);
-                margin: 0 !important;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                pointer-events: auto;
-            }
-
-            .joystick-base {
-                width: clamp(86px, 25vh, 112px) !important;
-                height: clamp(86px, 25vh, 112px) !important;
-                flex: 0 0 auto;
-            }
-
-            .joystick-label {
-                font-size: 6px;
-                margin-top: 2px;
-            }
-
-            .action-btns {
-                position: absolute !important;
-                right: max(8px, env(safe-area-inset-right)) !important;
-                bottom: max(10px, env(safe-area-inset-bottom)) !important;
-                width: calc(var(--landscape-side-safe) - 12px);
-                margin: 0 !important;
-                display: flex !important;
-                flex-direction: column-reverse;
-                gap: 8px !important;
-                align-items: center;
-                justify-content: flex-start;
-                pointer-events: auto;
-                opacity: .98;
-                overflow: visible;
-            }
-
-            .act-btn {
-                width: clamp(52px, 14vh, 66px) !important;
-                height: clamp(52px, 14vh, 66px) !important;
-                max-width: calc(var(--landscape-side-safe) - 24px) !important;
-                max-height: calc(var(--landscape-side-safe) - 24px) !important;
-                min-width: 0 !important;
-                min-height: 0 !important;
-                border-width: 3px;
-                font-size: clamp(8px, 2.2vh, 11px);
-                box-shadow: 0 3px 0 rgba(0,0,0,.62);
-                flex: none;
-            }
-
-            #btn-b {
-                transform: none !important;
-                margin-top: 0 !important;
-            }
-
-            .status-header {
-                width: min(48vw, 460px) !important;
-                height: 30px;
-                min-height: 30px;
-                top: max(3px, env(safe-area-inset-top));
-                z-index: 90;
-            }
-        }
-
-        @media (orientation: landscape) and (max-height: 430px) and (pointer: coarse) {
-            :root { --landscape-side-safe: clamp(92px, 16vw, 124px); }
-            .status-header { width: min(44vw, 400px) !important; height: 26px; min-height: 26px; }
-            .header-title-text { font-size: 5px; }
-            .joystick-base { width: clamp(76px, 23vh, 92px) !important; height: clamp(76px, 23vh, 92px) !important; }
-            .act-btn { width: clamp(46px, 13vh, 56px) !important; height: clamp(46px, 13vh, 56px) !important; font-size: 8px; }
-            .action-btns { gap: 5px !important; }
+        @media (orientation: portrait) and (max-width: 360px) {
+            .touch-controls { padding: 0 4px; } .action-btns { gap: 8px; }
+            .act-btn { width: 60px; height: 60px; } .joystick-base { width: 100px; height: 100px; }
         }
 
 </style>
 </head>
 <body>
+<dialog id="game-menu" aria-labelledby="game-menu-title">
+    <h2 id="game-menu-title">遊戲選單 · 已暫停</h2>
+    <button class="header-btn" id="menu-bgm" onclick="toggleBGM()">背景音樂：開</button>
+    <button class="header-btn" id="menu-sfx" onclick="toggleSFX()">遊戲音效：開</button>
+    <button class="header-btn" onclick="resetToCharSelect(); closeGameMenu()">重新選角</button>
+    <button class="header-btn menu-close" onclick="closeGameMenu()">繼續遊戲</button>
+</dialog>
 
 <div id="game-wrapper">
     <!-- Status Header Bar -->
     <div class="status-header">
         <div class="header-title-text" id="header-title">SUPER PIXEL WORLD</div>
-        <div style="display: flex; gap: 8px; align-items: center;">
+        <div class="desktop-actions" style="display: flex; gap: 8px; align-items: center;">
             <span class="char-tag-badge" id="char-badge">MARIO</span>
-            <button class="header-btn" style="background: #0284c7; border-color: #38bdf8;" onclick="toggleChangelog()">📋 v2.0.1 紀錄</button>
+            <button class="header-btn" style="background: #0284c7; border-color: #38bdf8;" onclick="toggleChangelog()">📋 v2.1 紀錄</button>
             <button class="header-btn" style="background: #a855f7; border-color: #c084fc;" id="bgm-btn" onclick="toggleBGM()">🎵 BGM: ON</button>
             <button class="header-btn" style="background: #475569; border-color: #64748b;" id="sfx-btn" onclick="toggleSFX()">🔊 SFX: ON</button>
             <button class="header-btn" style="background: #facc15; border-color: #eab308; color: #000; font-weight: bold;" onclick="resetToCharSelect()">選角／重來 [R]</button>
         </div>
+        <button class="header-btn mobile-menu-btn" onclick="openGameMenu()" aria-label="開啟遊戲選單">☰ 選單</button>
     </div>
-
     <!-- Main Game Canvas Container -->
+    <div class="play-area">
+    <div class="game-hud" aria-label="遊戲資訊">
+        <span id="hud-world">選擇角色</span><span id="hud-lives">♥ —</span>
+        <span id="hud-coins">金幣 —</span><span id="hud-goals">踩怪 —</span>
+        <span id="hud-score">分數 0</span><span id="hud-party">派對 0%</span>
+        <span id="hud-secret">密道未找到</span><span id="hud-combo">連擊 ×1</span>
+        <progress class="hud-progress" id="hud-progress" max="100" value="0" aria-label="關卡進度"></progress>
+    </div>
     <div id="game-container">
         <canvas id="gameCanvas" width="800" height="450"></canvas>
+    </div>
+
     </div>
 
     <!-- Mobile Touch Controller -->
@@ -894,6 +381,8 @@
     <div class="modal-box">
         <h2 style="color: #facc15; font-size: 13px; margin-bottom: 16px;">📋 版本更新紀錄 (CHANGELOG)</h2>
         <div style="font-size: 9px; line-height: 1.8; color: #cbd5e1;">
+            <p style="color:#facc15;"><strong>v2.1 - MOBILE COMFORT</strong></p>
+            <p>手機直向放大角色與遊戲視窗；橫向縮窄側邊操作區。任務、分數與進度移至遊戲外，跳躍視野不再被資訊面板遮擋。新增可暫停的手機選單。</p>
             <p style="color:#facc15;"><strong>v2.0.1 - LANDSCAPE CONTROL FIX</strong></p>
             <p>• 修正手機橫向控制器被 Flex/Grid 規則擠壓；左右控制器改為獨立安全區，不再互相擠或壓縮遊戲畫面</p>
             <p>• 強化窄螢幕安全距離：A/B 改為右側垂直排列，避免按鈕越界遮住 16:9 遊戲畫面</p>
@@ -2107,6 +1596,7 @@ class GameEngine {
 
     bindEvents() {
         window.addEventListener('keydown', (e) => {
+            if (document.getElementById('game-menu').open) return;
             this.keys[e.code] = true;
 
             if (e.code === 'KeyR') resetToCharSelect();
@@ -3400,11 +2890,14 @@ class GameEngine {
             if (b.hurtTimer > 0 && Math.floor(b.hurtTimer / 4) % 2 === 0) ctx.globalAlpha = 0.45;
             drawBowser(ctx, bx, b.y, b.face, t);
             ctx.restore();
-            panel(ctx, 250, 56, 300, 26, '#ef4444');
-            ctx.fillStyle = '#450a0a'; ctx.fillRect(256, 62, 288, 14);
-            ctx.fillStyle = '#ef4444'; ctx.fillRect(256, 62, 288 * (b.hp / b.maxHp), 14);
-            ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(256, 62, 288 * (b.hp / b.maxHp), 4);
-            txt(ctx, 'BOWSER', 400, 74, 8, '#fff', 'center', 3);
+            ctx.save();
+            ctx.translate((this.canvas.width - 800) / 2, 0);
+            panel(ctx, 250, 12, 300, 26, '#ef4444');
+            ctx.fillStyle = '#450a0a'; ctx.fillRect(256, 18, 288, 14);
+            ctx.fillStyle = '#ef4444'; ctx.fillRect(256, 18, 288 * (b.hp / b.maxHp), 14);
+            ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(256, 18, 288 * (b.hp / b.maxHp), 4);
+            txt(ctx, 'BOWSER', 400, 30, 8, '#fff', 'center', 3);
+            ctx.restore();
         }
 
         this.fireballs.forEach(f => {
@@ -3419,52 +2912,21 @@ class GameEngine {
         this.drawWater(ctx, cam, t);
         ctx.restore();
         this.drawHUD(ctx, lvl, t);
+        ctx.save();
+        ctx.translate((this.canvas.width - 800) / 2, 0);
         this.drawStatus(ctx);
+        ctx.restore();
     }
 
     drawHUD(ctx, lvl, t) {
-        // 左：任務面板
-        panel(ctx, 14, 12, 206, 96, '#facc15');
-        txt(ctx, lvl.name, 26, 32, 9, '#facc15', 'left', 4);
-        for (let i = 0; i < 5; i++) heart(ctx, 160 + i * 11 - 22, 16, 5, i < this.lives ? '#ef4444' : '#1e293b');
-        const row = (y, label, cur, goal, ok) => {
-            txt(ctx, label, 26, y, 7, '#e2e8f0', 'left', 3);
-            txt(ctx, `${cur}/${goal}`, 170, y, 7, ok ? '#4ade80' : '#fff', 'left', 3);
-            if (ok) checkMark(ctx, 202, y - 2, true);
-        };
-        row(54, 'COINS', this.coins, lvl.coinGoal, this.coins >= lvl.coinGoal);
-        row(72, 'STOMPS', this.stomps, lvl.stompGoal, this.stomps >= lvl.stompGoal);
-        txt(ctx, 'SECRET', 26, 90, 7, '#e2e8f0', 'left', 3);
-        txt(ctx, this.secretFound ? 'FOUND' : '???', 170, 90, 7, this.secretFound ? '#4ade80' : '#94a3b8', 'left', 3);
-
-        // 右：分數
-        panel(ctx, 590, 12, 196, 96, '#38bdf8');
-        txt(ctx, 'SCORE', 602, 32, 7, '#94a3b8', 'left', 3);
-        txt(ctx, String(this.score).padStart(7, '0'), 774, 32, 10, '#fff', 'right', 4);
-        txt(ctx, `COMBO x${this.combo}`, 602, 54, 8, this.combo > 1 ? '#facc15' : '#94a3b8', 'left', 3);
-        const pm = Math.min(100, Math.floor(this.partyMeter));
-        ctx.fillStyle = '#1e1b4b'; ctx.fillRect(602, 66, 172, 16);
-        const pg = ctx.createLinearGradient(602, 0, 774, 0); pg.addColorStop(0, '#ec4899'); pg.addColorStop(1, '#facc15');
-        ctx.fillStyle = pg; ctx.fillRect(602, 66, 172 * pm / 100, 16);
-        ctx.strokeStyle = '#000'; ctx.lineWidth = 2; ctx.strokeRect(602, 66, 172, 16);
-        txt(ctx, `PARTY ${pm}%`, 688, 78, 7, '#fff', 'center', 3);
-        txt(ctx, '★'.repeat(lvl.difficulty), 602, 100, 8, '#facc15', 'left', 3);
-
-        // 中：進度條
-        const pr = Math.max(0, Math.min(1, this.player.x / (lvl.length - 100)));
-        ctx.fillStyle = '#000'; ctx.fillRect(238, 14, 332, 14);
-        ctx.fillStyle = '#0f172a'; ctx.fillRect(240, 16, 328, 10);
-        ctx.fillStyle = '#38bdf8'; ctx.fillRect(240, 16, 328 * pr, 10);
-        ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect(240, 16, 328 * pr, 3);
-        this.checkpoints.forEach(cp => { ctx.fillStyle = cp.active ? '#4ade80' : '#facc15'; ctx.fillRect(240 + 328 * (cp.x / (lvl.length - 100)) - 1, 14, 3, 14); });
-        E(ctx, 240 + 328 * pr, 21, 6, 6, CHARACTERS[this.selectedChar].color);
-        star(ctx, 574, 21, 8, '#facc15');
-
+        ctx.save();
+        ctx.translate((this.canvas.width - 800) / 2, 0);
         if (this.partyTimer > 0) {
             const hue = (t * 8) % 360;
             txt(ctx, 'PARTY TIME!', 400, 140, 20, `hsl(${hue},95%,65%)`, 'center', 6);
         }
         if (t < 150) { ctx.globalAlpha = Math.min(1, (150 - t) / 40); txt(ctx, lvl.name, 400, 210, 24, '#fff', 'center', 7); txt(ctx, lvl.sub, 400, 240, 10, '#facc15', 'center', 4); ctx.globalAlpha = 1; }
+        ctx.restore();
     }
 
     renderCharSelect(ctx) {
@@ -3608,8 +3070,10 @@ class GameEngine {
     }
 
     render() {
+        updateGameLayout(this);
+        updateGameHUD(this);
         const ctx = this.ctx;
-        ctx.clearRect(0, 0, 800, 450);
+        ctx.clearRect(0, 0, this.canvas.width, 450);
         if ((this.state === 'SELECT_CHAR' || this.state === 'SELECT_LEVEL') && audio.ctx && audio.ctx.state === 'running' && audio.currentTheme !== 'menu') audio.startBGM('menu');
         if (this.state === 'SELECT_CHAR') this.renderCharSelect(ctx);
         else if (this.state === 'SELECT_LEVEL') this.renderLevelSelect(ctx);
@@ -3620,6 +3084,63 @@ class GameEngine {
 }
 
 let gameInstance = null;
+
+const layoutElements = {
+    area: document.querySelector('.play-area'),
+    hud: document.querySelector('.game-hud'),
+    screen: document.getElementById('game-container'),
+    menu: document.getElementById('game-menu')
+};
+let layoutDirty = true;
+let layoutState = '';
+new ResizeObserver(() => { layoutDirty = true; }).observe(layoutElements.area);
+window.addEventListener('resize', () => { layoutDirty = true; });
+function updateGameLayout(game) {
+    const portrait = matchMedia('(orientation: portrait)').matches && innerWidth <= 760;
+    const playing = game.state === 'PLAYING';
+    const logicalWidth = portrait && playing ? 480 : 800;
+    const state = `${logicalWidth}:${game.state}`;
+    if (!layoutDirty && layoutState === state) return;
+    layoutDirty = false;
+    layoutState = state;
+    if (game.canvas.width !== logicalWidth) {
+        game.canvas.width = logicalWidth;
+        game.ctx.imageSmoothingEnabled = false;
+        if (playing) game.cameraX = Math.max(0, Math.min(game.currentLevel.length - logicalWidth, game.player.x - 150));
+    }
+    const sideHUD = matchMedia('(orientation: landscape) and (max-height: 620px)').matches;
+    const availableHeight = Math.max(1, layoutElements.area.clientHeight - (sideHUD ? 0 : layoutElements.hud.offsetHeight + 6));
+    const scale = Math.min((layoutElements.area.clientWidth - 4) / logicalWidth, (availableHeight - 4) / 450);
+    layoutElements.screen.style.width = `${Math.max(1, logicalWidth * scale + 4)}px`;
+    layoutElements.screen.style.height = `${Math.max(1, 450 * scale + 4)}px`;
+}
+const hudElements = Object.fromEntries(['world','lives','coins','goals','score','party','secret','combo','progress'].map(key => [key, document.getElementById('hud-' + key)]));
+function updateGameHUD(game) {
+    const level = game.currentLevel;
+    const active = game.state === 'PLAYING' || game.state === 'WIN' || game.state === 'GAMEOVER';
+    const text = {
+        world: active ? `W ${level.id}` : (game.state === 'SELECT_CHAR' ? '選擇角色' : '選擇關卡'),
+        lives: `♥ ${game.lives}`,
+        coins: `金幣 ${game.coins}/${active ? level.coinGoal : '—'}`,
+        goals: `踩怪 ${game.stomps}/${active ? level.stompGoal : '—'}`,
+        score: `分數 ${game.score}`,
+        party: game.partyTimer > 0 ? '派對時間！' : `派對 ${Math.min(100, Math.floor(game.partyMeter))}%`,
+        secret: game.secretFound ? '密道已找到' : '密道未找到',
+        combo: `連擊 ×${game.combo}`
+    };
+    for (const [key,value] of Object.entries(text)) if (hudElements[key].textContent !== value) hudElements[key].textContent = value;
+    const progress = active ? Math.max(0, Math.min(100, game.player.x / (level.length - 100) * 100)) : 0;
+    hudElements.progress.value = progress;
+}
+function openGameMenu() {
+    if (gameInstance) gameInstance.keys = {};
+    layoutElements.menu.showModal();
+}
+function closeGameMenu() {
+    layoutElements.menu.close();
+    if (gameInstance) gameInstance.keys = {};
+}
+
 
 function toggleChangelog() {
     const modal = document.getElementById('changelog-modal');
@@ -3632,6 +3153,7 @@ function toggleBGM() {
     audio.isMutedBGM = !audio.isMutedBGM;
     const btn = document.getElementById('bgm-btn');
     if (btn) btn.innerText = `🎵 BGM: ${audio.isMutedBGM ? 'OFF' : 'ON'}`;
+    document.getElementById('menu-bgm').textContent = `背景音樂：${audio.isMutedBGM ? '關' : '開'}`;
     if (audio.isMutedBGM) {
         audio.stopBGM();
     } else if (gameInstance && gameInstance.currentLevel) {
@@ -3643,6 +3165,7 @@ function toggleSFX() {
     audio.isMutedSFX = !audio.isMutedSFX;
     const btn = document.getElementById('sfx-btn');
     if (btn) btn.innerText = `🔊 SFX: ${audio.isMutedSFX ? 'OFF' : 'ON'}`;
+    document.getElementById('menu-sfx').textContent = `遊戲音效：${audio.isMutedSFX ? '關' : '開'}`;
 }
 
 function resetToCharSelect() {
@@ -3706,7 +3229,7 @@ window.onload = () => {
     gameInstance = new GameEngine();
     
     function loop() {
-        gameInstance.update();
+        if (!layoutElements.menu.open && document.getElementById('changelog-modal').style.display !== 'flex') gameInstance.update();
         gameInstance.render();
         requestAnimationFrame(loop);
     }
